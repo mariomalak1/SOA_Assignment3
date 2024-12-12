@@ -38,5 +38,29 @@
                 "ScoreOutof100": 70
             }
         ]
+    },
+    {
+        "FirstName": "Mario",
+        "LastName": "Alabd",
+        "EmployeeID": 3000,
+        "Designation": "Manager",
+        "KnownLanguages": [
+            {
+                "LanguageName": "Python",
+                "ScoreOutof100": 90
+            },
+            {
+                "LanguageName": "Java",
+                "ScoreOutof100": 60
+            },
+            {
+                "LanguageName": "C++",
+                "ScoreOutof100": 90
+            },
+            {
+                "LanguageName": "Node.js",
+                "ScoreOutof100": 70
+            }
+        ]
     }
 ]
