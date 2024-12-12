@@ -75,7 +75,7 @@ export const deleteEmpolyee = async (req, res) => {
         e.EmployeeID === EmployeeID ? true : false
     );
 
-    if (employeeIndex > -1) {
+    if (employeeIndex === -1) {
         return res.status(404).json({ error: "not found employee with this id" });
     }
 
