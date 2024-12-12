@@ -62,3 +62,26 @@ export const addEmpolyee = async (req, res) => {
     saveDataToFile(employees);
     return res.status(201).json(employee);
 }
+
+
+export const deleteEmpolyee = async (req, res) => {
+    const {EmployeeID} = req.body;
+
+    if (!EmployeeID) {
+        return res.status(400).json({ error: "Employee ID is required." });
+    }
+
+    let employeeIndex = employees.findIndex((e) =>
+        e.EmployeeID === EmployeeID ? true : false
+    );
+
+    if (employeeIndex > -1) {
+        return res.status(404).json({ error: "not found employee with this id" });
+    }
+
+
+    employees.splice(employeeIndex, 1);
+    saveDataToFile(employees);
+    return res.sendStatus(204);
+}
+
