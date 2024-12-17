@@ -12,3 +12,4 @@ router
   .put(controller.updateEmployee);
 
   router.get("/java50", controller.getEmployeesWithGT50Java);
+  router.get("/search", controller.searchEmployee);

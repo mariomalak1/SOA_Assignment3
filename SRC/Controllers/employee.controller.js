@@ -119,25 +119,52 @@ export const updateEmployee = async (req, res) => {
 
 // Retrieve employee by id
 export const getEmployeesWithGT50Java = async (req, res) => {
-    // Filter employees with KnownLanguages containing Java with ScoreOutOf100 > 50
-    const requiredEmployees = employees.filter((e) => {
-      return e.KnownLanguages.some(
-        (lang) => lang.LanguageName === "Java" && lang.ScoreOutOf100 > 50
-      );
-    });
-  
-    // Sort employees in ascending order of Java score
-    requiredEmployees.sort((a, b) => {
-      const scoreA = a.KnownLanguages.find(
-        (lang) => lang.LanguageName === "Java"
-      ).ScoreOutOf100;
-      const scoreB = b.KnownLanguages.find(
-        (lang) => lang.LanguageName === "Java"
-      ).ScoreOutOf100;
-      return scoreA - scoreB;
-    });
-  
-    // Return the list of employees
-    return res.status(200).json({ data: requiredEmployees });
-  };
-  
+  // Filter employees with KnownLanguages containing Java with ScoreOutOf100 > 50
+  const requiredEmployees = employees.filter((e) => {
+    return e.KnownLanguages.some(
+      (lang) => lang.LanguageName === "Java" && lang.ScoreOutOf100 > 50
+    );
+  });
+
+  // Sort employees in ascending order of Java score
+  requiredEmployees.sort((a, b) => {
+    const scoreA = a.KnownLanguages.find(
+      (lang) => lang.LanguageName === "Java"
+    ).ScoreOutOf100;
+    const scoreB = b.KnownLanguages.find(
+      (lang) => lang.LanguageName === "Java"
+    ).ScoreOutOf100;
+    return scoreA - scoreB;
+  });
+
+  // Return the list of employees
+  return res.status(200).json({ data: requiredEmployees });
+};
+
+// search employee by id or Designation
+export const searchEmployee = async (req, res) => {
+  const { EmployeeID, Designation } = req.query;
+
+  if (!EmployeeID && !Designation) {
+    return res
+      .status(400)
+      .json({ error: "EmployeeID or Designation is required" });
+  }
+
+  let searchResults = employees;
+
+  if (EmployeeID) {
+    searchResults = searchResults.filter((e) => e.EmployeeID == EmployeeID);
+  }
+
+  if (Designation) {
+    searchResults = searchResults.filter((e) => e.Designation == Designation);
+  }
+
+  return res.status(200).json({
+    message: EmployeeID
+      ? "Employee found by EmployeeID"
+      : searchResults.length + " Employees found by Designation",
+    data: searchResults,
+  });
+};
